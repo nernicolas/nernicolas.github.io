@@ -8,7 +8,7 @@ const smBox = smallCanvas.getContext('2d');
 let isDrawing = false;
 let model;
 
-/* Loads trained model */
+/* Load le model entrainé */
 async function init() {
   model = await tf.loadModel('https://nernicolas.github.io/model.json');
 }
@@ -31,20 +31,19 @@ canvas.addEventListener('mouseup', event => {
   updateDisplay(predict());
 });
 
-/* Draws on canvas */
+/* Pour dessiner dans les canvas */
 function drawStroke(clientX, clientY) {
   // get mouse coordinates on canvas
   const rect = canvas.getBoundingClientRect();
   const x = clientX - rect.left;
   const y = clientY - rect.top;
 
-  // draw
   inputBox.lineTo(x, y);
   inputBox.stroke();
   inputBox.moveTo(x, y);
 }
 
-/* Makes predictions */
+/* Predictions */
 function predict() {
   let values = getPixelData();
   let predictions = model.predict(values).dataSync();
@@ -52,12 +51,12 @@ function predict() {
   return predictions;
 }
 
-/* Returns pixel data from canvas after applying transformations */
+/* Avoir les informations (pixels) du canvas*/
 function getPixelData() {
   smBox.drawImage(inputBox.canvas, 0, 0, smallCanvas.width, smallCanvas.height);
   const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
 
-  // preserve and normalize values from red channel only
+  // les mettre sous le meme format que les données d'entrainement du modele
   let values = [];
   for (let i = 0; i < imgData.data.length; i += 4) {
     values.push(imgData.data[i] / 255);
@@ -66,7 +65,7 @@ function getPixelData() {
   return values;
 }
 
-/* Displays predictions on screen */
+/* Afficher les prédictions */
 function updateDisplay(predictions) {
   // Find index of best prediction, which corresponds to the predicted value
   const bestPred = predictions.indexOf(Math.max(...predictions));
