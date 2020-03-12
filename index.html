@@ -1,1 +1,25 @@
-"Hello World" 
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Digit Recognition</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</head>
+
+<body>
+  <h1>Digit Recognizer</h1>
+  <p>Reconnaissance de chiffre avec un réseau de neurones convolutionnel, Keras et tensorflow.js</p>
+  
+  <section>
+    <canvas id="main-canvas" width="300" height="300"></canvas>
+    <canvas id="small-canvas" width="28" height="28"></canvas>
+    <div id="prediction"></div>
+  </section>
+
+  <button id="erase">Clear</button>
+  <script src="script.js"></script>
+</body>
+
+</html>
